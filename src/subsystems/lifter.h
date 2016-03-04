@@ -22,42 +22,15 @@
 
 #pragma once
 
-#include "common.h"
-#include "subsystems/lifter.h"
-#include "subsystems/intake.h"
-#include "subsystems/shooter.h"
-#include "subsystems/powertrain.h"
+#include "core/common.h"
 
-class Robot : public IterativeRobot {
+class Lifter {
   public:
-    void RobotInit();
-    void AutonomousInit();
-    void TeleopPeriodic();
-    void AutonomousPeriodic();
+    explicit Lifter();
+
+    void move (const Joystick& joystick);
+    void move (DoubleSolenoid::Value value);
 
   private:
-    unique_ptr<Joystick> m_joystickLifter;
-    unique_ptr<Joystick> m_joystickIntake;
-    unique_ptr<Joystick> m_joystickShooter;
-    unique_ptr<Joystick> m_joystickPowertrainA;
-    unique_ptr<Joystick> m_joystickPowertrainB;
-
-    unique_ptr<Lifter> m_subsystemLifter;
-    unique_ptr<Intake> m_subsystemIntake;
-    unique_ptr<Shooter> m_subsystemShooter;
-    unique_ptr<Powertrain> m_subsystemPowertrain;
-
-    float m_auto_intake;
-    float m_auto_lifter;
-    float m_auto_drive_x;
-    float m_auto_drive_y;
-    float m_auto_shooter;
-
-    float m_auto_lifter_time;
-    float m_auto_intake_time;
-    float m_auto_shooter_time;
-    float m_auto_drive_x_time;
-    float m_auto_drive_y_time;
+    unique_ptr<DoubleSolenoid> m_solenoid;
 };
-
-

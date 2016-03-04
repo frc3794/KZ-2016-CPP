@@ -20,44 +20,37 @@
  * THE SOFTWARE.
  */
 
-#pragma once
+#include "lifter.h"
 
-#include "common.h"
-#include "subsystems/lifter.h"
-#include "subsystems/intake.h"
-#include "subsystems/shooter.h"
-#include "subsystems/powertrain.h"
+//===============================================================================
+// Lifter::Lifter
+//===============================================================================
 
-class Robot : public IterativeRobot {
-  public:
-    void RobotInit();
-    void AutonomousInit();
-    void TeleopPeriodic();
-    void AutonomousPeriodic();
+Lifter::Lifter() {
+    m_solenoid = make_unique<DoubleSolenoid> (Pneumatics::kLifterSolenoid_Up,
+                 Pneumatics::kLifterSolenoid_Down);
+}
 
-  private:
-    unique_ptr<Joystick> m_joystickLifter;
-    unique_ptr<Joystick> m_joystickIntake;
-    unique_ptr<Joystick> m_joystickShooter;
-    unique_ptr<Joystick> m_joystickPowertrainA;
-    unique_ptr<Joystick> m_joystickPowertrainB;
+//===============================================================================
+// Lifter::move
+//===============================================================================
 
-    unique_ptr<Lifter> m_subsystemLifter;
-    unique_ptr<Intake> m_subsystemIntake;
-    unique_ptr<Shooter> m_subsystemShooter;
-    unique_ptr<Powertrain> m_subsystemPowertrain;
+void Lifter::move (const Joystick& joystick) {
+    DoubleSolenoid::Value value = DoubleSolenoid::kOff;
 
-    float m_auto_intake;
-    float m_auto_lifter;
-    float m_auto_drive_x;
-    float m_auto_drive_y;
-    float m_auto_shooter;
+    if (joystick.GetRawButton (OI::kLifterUp))
+        value = DoubleSolenoid::kForward;
 
-    float m_auto_lifter_time;
-    float m_auto_intake_time;
-    float m_auto_shooter_time;
-    float m_auto_drive_x_time;
-    float m_auto_drive_y_time;
-};
+    else if (joystick.GetRawButton (OI::kLifterDown))
+        value = DoubleSolenoid::kReverse;
 
+    move (value);
+}
 
+//===============================================================================
+// Lifter::move
+//===============================================================================
+
+void Lifter::move (DoubleSolenoid::Value value) {
+    m_solenoid->Set (value);
+}

@@ -27,35 +27,58 @@
 //===============================================================================
 
 void Robot::RobotInit() {
-    m_subystemShooter     = make_unique<Shooter>();
-    m_subystemIntake   = make_unique<Intake>();
+    /* Create subsystems */
+    m_subsystemLifter     = make_unique<Lifter>();
+    m_subsystemIntake     = make_unique<Intake>();
+    m_subsystemShooter    = make_unique<Shooter>();
     m_subsystemPowertrain = make_unique<Powertrain>();
-    m_joystickShooter     = make_unique<Joystick> (OI::kShooterJoystick);
+
+    /* Create joysticks */
+    m_joystickIntake      = make_unique<Joystick> (OI::kLifterJoystick);
     m_joystickIntake      = make_unique<Joystick> (OI::kIntakeJoystick);
+    m_joystickShooter     = make_unique<Joystick> (OI::kShooterJoystick);
     m_joystickPowertrainA = make_unique<Joystick> (OI::kPowertrainJoystickA);
     m_joystickPowertrainB = make_unique<Joystick> (OI::kPowertrainJoystickB);
+
+    /* Autonomous actuator values */
+    m_auto_intake         = 0;
+    m_auto_lifter         = 0;
+    m_auto_drive_x        = 0;
+    m_auto_drive_y        = 0;
+    m_auto_shooter        = 0;
+
+    /* Autonomous actuator times */
+    m_auto_lifter_time    = 0;
+    m_auto_intake_time    = 0;
+    m_auto_shooter_time   = 0;
+    m_auto_drive_x_time   = 0;
+    m_auto_drive_y_time   = 0;
 }
 
 //===============================================================================
-// Robot::Autonomous
+// Robot::TeleopPeriodic
 //===============================================================================
 
-void Robot::Autonomous() {
-    while (IsAutonomous())
-        Wait (LOOP_TIME);
+void Robot::AutonomousInit() {
+
 }
 
 //===============================================================================
-// Robot::OperatorControl
+// Robot::TeleopPeriodic
 //===============================================================================
 
-void Robot::OperatorControl() {
-    while (IsOperatorControl()) {
-        m_subystemIntake->move       (*m_joystickIntake.get());
-        m_subystemShooter->shoot     (*m_joystickShooter.get());
-        m_subsystemPowertrain->drive (*m_joystickPowertrainA.get(),
-                                      *m_joystickPowertrainB.get());
-
-        Wait (LOOP_TIME);
-    }
+void Robot::TeleopPeriodic() {
+    m_subsystemLifter->move      (*m_joystickLifter.get());
+    m_subsystemIntake->move      (*m_joystickIntake.get());
+    m_subsystemShooter->shoot    (*m_joystickShooter.get());
+    m_subsystemPowertrain->drive (*m_joystickPowertrainA.get(),
+                                  *m_joystickPowertrainB.get());
 }
+
+//===============================================================================
+// Robot::AutonomousPeriodic
+//===============================================================================
+
+void Robot::AutonomousPeriodic() {
+}
+

@@ -34,7 +34,7 @@ using namespace std;
 ///
 /// Global variables
 ///
-#define WinT_Motor       CANTalon
+#define WinT_Motor       Talon
 #define MIN_OUTPUT       0.100
 #define LOOP_TIME        0.050
 #define USES_OFFICIAL_DS false
@@ -73,8 +73,8 @@ enum {
 namespace Pneumatics {
 enum {
     kCompressor          = 0,
-    kLifterSolenoid_A    = 1,
-    kLifterSolenoid_B    = 2
+    kLifterSolenoid_Up   = 1,
+    kLifterSolenoid_Down = 2
 };
 }
 
@@ -139,6 +139,12 @@ enum IntakeInterface {
     kIntakeJoystick      = 1,
     kIntakeTake          = X360_Mappings::kButtonLeftBumper,
     kIntakeGive          = X360_Mappings::kButtonRightBumper,
+};
+
+enum LifterInterface {
+    kLifterJoystick      = 1,
+    kLifterUp            = X360_Mappings::kButtonLeftBumper,
+    kLifterDown          = X360_Mappings::kButtonRightBumper,
 };
 
 enum PowertrainInterface {
