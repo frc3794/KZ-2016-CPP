@@ -73,7 +73,7 @@ void Shooter::shoot (float inches) {
 
 void Shooter::shoot (float left, float right) {
     m_motorLeft->Set  (ADJUST_INPUT (left,  0));
-    m_motorRight->Set (ADJUST_INPUT (right, 0));
+    //m_motorRight->Set (ADJUST_INPUT (right, 0));
 }
 
 //===============================================================================
@@ -84,7 +84,7 @@ void Shooter::shoot (const Joystick& joystick) {
     if (joystick.GetRawButton (OI::kSmartShootButton))
         shoot (m_ultrasonic->GetRangeInches());
 
-    else if (joystick.GetRawButton (OI::kBruteShootButton))
+    if (joystick.GetRawButton (OI::kBruteShootButton))
         shoot (1, 1);
 
     else {
@@ -92,8 +92,7 @@ void Shooter::shoot (const Joystick& joystick) {
                joystick.GetRawAxis (OI::kShootRightAxis));
     }
 
-    if (joystick.GetRawButton (OI::kEnableActuator))
-        enableActuator (0.85);
+    enableActuator (joystick.GetRawAxis (OI::kEnableActuator));
 }
 
 //===============================================================================

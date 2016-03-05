@@ -38,22 +38,24 @@ using namespace std;
 #define MIN_OUTPUT       0.100
 #define LOOP_TIME        0.050
 #define USES_OFFICIAL_DS false
+#define IS_CLONE         true
 
 ///
 /// Motor/actuator identifiers
 ///
 namespace Motors {
 enum {
-    kLeftA               = 2,
-    kLeftB               = 3,
-    kRightA              = 4,
-    kRightB              = 5,
-    kClutchA             = 1,
-    kClutchB             = 9,
-    kLeftShooter         = 7,
-    kRightShooter        = 8,
-    kIntakeMotor         = 6,
-    kShooterActuator     = 10,
+    kLeftA               = IS_CLONE ? 1 : 2,
+    kLeftB               = IS_CLONE ? 2 : 3,
+    kRightA              = IS_CLONE ? 3 : 4,
+    kRightB              = IS_CLONE ? 4 : 5,
+    kClutchA             = IS_CLONE ? 0 : 1,
+    kClutchB             = IS_CLONE ? 7 : 9,
+    kLeftShooter         = IS_CLONE ? 6 : 7,
+    kRightShooter        = IS_CLONE ? 6 : 8,
+    kIntakeMotor         = IS_CLONE ? 5 : 6,
+    kHandsActuator       = IS_CLONE ? 9 : 10,
+    kShooterActuator     = IS_CLONE ? 8 : 9,
 };
 }
 
@@ -63,7 +65,7 @@ enum {
 namespace Sensors {
 enum {
     kShooterRadarPing    = 1,
-    kShooterRadarEcho    = 1
+    kShooterRadarEcho    = 2,
 };
 }
 
@@ -127,29 +129,26 @@ enum {
 ///
 namespace OI {
 enum ShooterInterface {
-    kShooterJoystick     = 1,
     kBruteShootButton    = X360_Mappings::kButtonB,
     kSmartShootButton    = X360_Mappings::kButtonY,
-    kEnableActuator      = X360_Mappings::kButtonRightBumper,
+    kEnableActuator      = X360_Mappings::kAxisLeftY,
     kShootLeftAxis       = X360_Mappings::kAxisLeftTrigger,
     kShootRightAxis      = X360_Mappings::kAxisRightTrigger,
 };
 
 enum IntakeInterface {
-    kIntakeJoystick      = 1,
+    kLiftHand            = X360_Mappings::kButtonBack,
+    kDropHand            = X360_Mappings::kButtonStart,
     kIntakeTake          = X360_Mappings::kButtonLeftBumper,
     kIntakeGive          = X360_Mappings::kButtonRightBumper,
 };
 
 enum LifterInterface {
-    kLifterJoystick      = 1,
     kLifterUp            = X360_Mappings::kButtonLeftBumper,
     kLifterDown          = X360_Mappings::kButtonRightBumper,
 };
 
 enum PowertrainInterface {
-    kPowertrainJoystickA = 0,
-    kPowertrainJoystickB = 1,
     kY_DriveAxis         = X360_Mappings::kAxisLeftY,
     kX_DriveAxis         = X360_Mappings::kAxisLeftX,
     kY_SlowDriveAxis     = X360_Mappings::kAxisRightY,

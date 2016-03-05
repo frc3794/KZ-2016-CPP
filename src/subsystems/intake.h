@@ -27,12 +27,13 @@
 class Intake {
   public:
     explicit Intake();
-    void move (float value);
+    void move (float value, float hands);
     void move (const Joystick& joystick);
     void setSafetyEnabled (bool enabled);
 
   private:
     unique_ptr<WinT_Motor> m_motor;
+    unique_ptr<WinT_Motor> m_hands;
 };
 
 

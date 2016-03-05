@@ -34,11 +34,8 @@ void Robot::RobotInit() {
     m_subsystemPowertrain = make_unique<Powertrain>();
 
     /* Create joysticks */
-    m_joystickIntake      = make_unique<Joystick> (OI::kLifterJoystick);
-    m_joystickIntake      = make_unique<Joystick> (OI::kIntakeJoystick);
-    m_joystickShooter     = make_unique<Joystick> (OI::kShooterJoystick);
-    m_joystickPowertrainA = make_unique<Joystick> (OI::kPowertrainJoystickA);
-    m_joystickPowertrainB = make_unique<Joystick> (OI::kPowertrainJoystickB);
+    m_driveJoystick       = make_unique<Joystick> (0);
+    m_secndJoystick       = make_unique<Joystick> (1);
 
     /* Autonomous actuator values */
     m_auto_intake         = 0;
@@ -68,11 +65,11 @@ void Robot::AutonomousInit() {
 //===============================================================================
 
 void Robot::TeleopPeriodic() {
-    m_subsystemLifter->move      (*m_joystickLifter.get());
-    m_subsystemIntake->move      (*m_joystickIntake.get());
-    m_subsystemShooter->shoot    (*m_joystickShooter.get());
-    m_subsystemPowertrain->drive (*m_joystickPowertrainA.get(),
-                                  *m_joystickPowertrainB.get());
+    m_subsystemLifter->move      (*m_driveJoystick.get());
+    m_subsystemIntake->move      (*m_secndJoystick.get());
+    m_subsystemShooter->shoot    (*m_secndJoystick.get());
+    m_subsystemPowertrain->drive (*m_driveJoystick.get(),
+                                  *m_secndJoystick.get());
 }
 
 //===============================================================================

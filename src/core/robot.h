@@ -36,11 +36,8 @@ class Robot : public IterativeRobot {
     void AutonomousPeriodic();
 
   private:
-    unique_ptr<Joystick> m_joystickLifter;
-    unique_ptr<Joystick> m_joystickIntake;
-    unique_ptr<Joystick> m_joystickShooter;
-    unique_ptr<Joystick> m_joystickPowertrainA;
-    unique_ptr<Joystick> m_joystickPowertrainB;
+    unique_ptr<Joystick> m_driveJoystick;
+    unique_ptr<Joystick> m_secndJoystick;
 
     unique_ptr<Lifter> m_subsystemLifter;
     unique_ptr<Intake> m_subsystemIntake;
