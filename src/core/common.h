@@ -44,119 +44,105 @@ using namespace std;
 /// Motor/actuator identifiers
 ///
 namespace Motors {
-enum {
-    kLeftA               = IS_CLONE ? 1 : 2,
-    kLeftB               = IS_CLONE ? 2 : 3,
-    kRightA              = IS_CLONE ? 3 : 4,
-    kRightB              = IS_CLONE ? 4 : 5,
-    kClutchA             = IS_CLONE ? 0 : 1,
-    kClutchB             = IS_CLONE ? 7 : 9,
-    kLeftShooter         = IS_CLONE ? 6 : 7,
-    kRightShooter        = IS_CLONE ? 6 : 8,
-    kIntakeMotor         = IS_CLONE ? 5 : 6,
-    kHandsActuator       = IS_CLONE ? 9 : 10,
-    kShooterActuator     = IS_CLONE ? 8 : 9,
-};
+const int kLeftA               = IS_CLONE ? 1 : 2,
+const int kLeftB               = IS_CLONE ? 2 : 3,
+const int kRightA              = IS_CLONE ? 3 : 4,
+const int kRightB              = IS_CLONE ? 4 : 5,
+const int kClutchA             = IS_CLONE ? 0 : 1,
+const int kClutchB             = IS_CLONE ? 7 : 9,
+const int kLeftShooter         = IS_CLONE ? 6 : 7,
+const int kRightShooter        = IS_CLONE ? 6 : 8,
+const int kIntakeMotor         = IS_CLONE ? 5 : 6,
+const int kHandsActuator       = IS_CLONE ? 9 : 10,
+const int kShooterActuator     = IS_CLONE ? 8 : 9,
 }
 
 ///
 /// Digital sensor identifiers
 ///
 namespace Sensors {
-enum {
-    kShooterRadarPing    = 1,
-    kShooterRadarEcho    = 2,
-};
+const int kShooterRadarPing    = 1,
+const int kShooterRadarEcho    = 2,
 }
 
 ///
 /// Components of the pneumatic system
 ///
 namespace Pneumatics {
-enum {
-    kCompressor          = 0,
-    kLifterSolenoid_Up   = 1,
-    kLifterSolenoid_Down = 2
-};
+const int kCompressor          = 0,
+const int kLifterSolenoid_Up   = 1,
+const int kLifterSolenoid_Down = 2
 }
 
 ///
 /// Controller mappings for Xbox 360
 ///
 namespace X360_Mappings {
-enum {
-    kAxisLeftX           = 0,
-    kAxisLeftY           = 1,
-    kAxisRightX          = USES_OFFICIAL_DS ? 4 : 3,
-    kAxisRightY          = USES_OFFICIAL_DS ? 5 : 4,
-    kAxisLeftTrigger     = 2,
-    kAxisRightTrigger    = USES_OFFICIAL_DS ? 3 : 2,
-    kButtonA             = 1,
-    kButtonB             = 2,
-    kButtonX             = 3,
-    kButtonY             = 4,
-    kButtonBack          = 7,
-    kButtonStart         = 8,
-    kButtonLeftBumper    = 5,
-    kButtonRightBumper   = 6,
-};
+const int kAxisLeftX           = 0,
+const int kAxisLeftY           = 1,
+const int kAxisRightX          = USES_OFFICIAL_DS ? 4 : 3,
+const int kAxisRightY          = USES_OFFICIAL_DS ? 5 : 4,
+const int kAxisLeftTrigger     = 2,
+const int kAxisRightTrigger    = USES_OFFICIAL_DS ? 3 : 2,
+const int kButtonA             = 1,
+const int kButtonB             = 2,
+const int kButtonX             = 3,
+const int kButtonY             = 4,
+const int kButtonBack          = 7,
+const int kButtonStart         = 8,
+const int kButtonLeftBumper    = 5,
+const int kButtonRightBumper   = 6,
 }
 
 ///
 /// Controller mappings for Xbox One controllers
 ///
 namespace XBOX_ONE_Mappings {
-enum {
-    kAxisLeftX           = 0,
-    kAxisLeftY           = 1,
-    kAxisRightX          = USES_OFFICIAL_DS ? 4 : 3,
-    kAxisRightY          = USES_OFFICIAL_DS ? 5 : 4,
-    KAxisLeftTrigger     = 2,
-    kAxisRightTrigger    = USES_OFFICIAL_DS ? 3 : 5,
-    kButtonA             = 1,
-    kButtonB             = 2,
-    kButtonX             = 3,
-    kButtonY             = 4,
-    kButtonBack          = 7,
-    kButtonStart         = 8,
-    kButtonLeftBumper    = 5,
-    kButtonRightBumper   = 6,
-};
+const int kAxisLeftX           = 0,
+const int kAxisLeftY           = 1,
+const int kAxisRightX          = USES_OFFICIAL_DS ? 4 : 3,
+const int kAxisRightY          = USES_OFFICIAL_DS ? 5 : 4,
+const int kAxisLeftTrigger     = 2,
+const int kAxisRightTrigger    = USES_OFFICIAL_DS ? 3 : 5,
+const int kButtonA             = 1,
+const int kButtonB             = 2,
+const int kButtonX             = 3,
+const int kButtonY             = 4,
+const int kButtonBack          = 7,
+const int kButtonStart         = 8,
+const int kButtonLeftBumper    = 5,
+const int kButtonRightBumper   = 6,
 }
 
 ///
 /// Defines the joysticks, buttons and axes used by each system
 ///
 namespace OI {
-enum ShooterInterface {
-    kBruteShootButton    = X360_Mappings::kButtonB,
-    kSmartShootButton    = X360_Mappings::kButtonY,
-    kEnableActuator      = X360_Mappings::kAxisLeftY,
-    kShootLeftAxis       = X360_Mappings::kAxisLeftTrigger,
-    kShootRightAxis      = X360_Mappings::kAxisRightTrigger,
-};
+/* Shooter interface */
+const int kBruteShootButton    = X360_Mappings::kButtonB,
+const int kSmartShootButton    = X360_Mappings::kButtonY,
+const int kEnableActuator      = X360_Mappings::kAxisLeftY,
+const int kShootLeftAxis       = X360_Mappings::kAxisLeftTrigger,
+const int kShootRightAxis      = X360_Mappings::kAxisRightTrigger,
 
-enum IntakeInterface {
-    kLiftHand            = X360_Mappings::kButtonBack,
-    kDropHand            = X360_Mappings::kButtonStart,
-    kIntakeTake          = X360_Mappings::kButtonLeftBumper,
-    kIntakeGive          = X360_Mappings::kButtonRightBumper,
-};
+/* Intake & hands interface */
+const int kLiftHand            = X360_Mappings::kButtonBack,
+const int kDropHand            = X360_Mappings::kButtonStart,
+const int kIntakeTake          = X360_Mappings::kButtonLeftBumper,
+const int kIntakeGive          = X360_Mappings::kButtonRightBumper,
 
-enum LifterInterface {
-    kLifterUp            = X360_Mappings::kButtonLeftBumper,
-    kLifterDown          = X360_Mappings::kButtonRightBumper,
-};
+/* Piston lifter interface */
+const int kLifterUp            = X360_Mappings::kButtonLeftBumper,
+const int kLifterDown          = X360_Mappings::kButtonRightBumper,
 
-enum PowertrainInterface {
-    kY_DriveAxis         = X360_Mappings::kAxisLeftY,
-    kX_DriveAxis         = X360_Mappings::kAxisLeftX,
-    kY_SlowDriveAxis     = X360_Mappings::kAxisRightY,
-    kX_SlowDriveAxis     = X360_Mappings::kAxisRightX,
-    kY_InvertButton      = X360_Mappings::kButtonA,
-    kBlockStickB         = X360_Mappings::kButtonX,
-    kSensivityAxis       = X360_Mappings::kAxisLeftTrigger,
-};
+/* Powertrain */
+const int kY_DriveAxis         = X360_Mappings::kAxisLeftY,
+const int kX_DriveAxis         = X360_Mappings::kAxisLeftX,
+const int kY_SlowDriveAxis     = X360_Mappings::kAxisRightY,
+const int kX_SlowDriveAxis     = X360_Mappings::kAxisRightX,
+const int kY_InvertButton      = X360_Mappings::kButtonA,
+const int kBlockStickB         = X360_Mappings::kButtonX,
+const int kSensivityAxis       = X360_Mappings::kAxisLeftTrigger,
 }
 
 ///
@@ -167,7 +153,7 @@ enum PowertrainInterface {
 /// to move a motor. If not, the function will return 0.
 ///
 /// Then, we apply the following function to adjust the input value
-/// to the defined sensivity:
+/// to the defined sensitivity:
 ///
 /// y = (a)(x^3) + (1 - a)(x)
 ///
@@ -180,13 +166,13 @@ enum PowertrainInterface {
 ///     - Obtain a 'curved' output
 ///     - Obtain both positive and negative values
 ///
-/// When the sensivity is set to 0, y = x^3
+/// When the sensitivity is set to 0, y = x^3
 ///
-inline float ADJUST_INPUT (float input, float sensivity) {
+inline float ADJUST_INPUT (float input, float sensitivity) {
     if (abs (input) < abs (MIN_OUTPUT))
         return 0;
 
-    float s = abs (sensivity);
+    float s = abs (sensitivity);
     float final = (s * pow (input, 3)) + (1 - s) * input;
     return final;
 }
