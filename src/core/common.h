@@ -36,6 +36,7 @@ using namespace std;
 ///
 #define WinT_Motor       Talon
 #define MIN_OUTPUT       0.100
+#define SD               SmartDashboard
 const bool USES_OFFICIAL_DS = true;
 const bool IS_CLONE = true;
 
@@ -69,8 +70,8 @@ const int kShooterRadarEcho    = 2;
 ///
 namespace Pneumatics {
 const int kCompressor          = 0;
-const int kLifterSolenoid_Up   = 0;
-const int kLifterSolenoid_Down = 1;
+const int kLifterPiston_Up     = 0;
+const int kLifterPiston_Down   = 1;
 }
 
 ///

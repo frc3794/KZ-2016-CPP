@@ -28,6 +28,7 @@ class Lifter {
   public:
     explicit Lifter();
 
+    void enableCompressor (bool enabled);
     void move (const Joystick& joystick);
     void move (DoubleSolenoid::Value value);
 

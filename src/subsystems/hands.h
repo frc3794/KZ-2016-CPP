@@ -24,22 +24,14 @@
 
 #include "core/common.h"
 
-class Shooter {
+class Hands {
   public:
-    explicit Shooter();
-    void shoot (float inches);
-    void moveHands (float value);
-    void shoot (float left, float right);
-    void shoot (const Joystick& joystick);
-    void moveBallToShooter (float act_output);
+    explicit Hands();
+
+    void move (float value);
+    void move (const Joystick& joystick);
+    void setSafetyEnabled (bool enabled);
 
   private:
-    float getInitialVelocity (float range);
-
-    unique_ptr<WinT_Motor> m_actuator;
-    unique_ptr<WinT_Motor> m_motorLeft;
-    unique_ptr<WinT_Motor> m_motorRight;
-    unique_ptr<Ultrasonic> m_ultrasonic;
-
-    float m_maxInitialVelocity;
+    unique_ptr<WinT_Motor> m_motor;
 };

@@ -23,6 +23,7 @@
 #pragma once
 
 #include "common.h"
+#include "subsystems/hands.h"
 #include "subsystems/lifter.h"
 #include "subsystems/intake.h"
 #include "subsystems/shooter.h"
@@ -36,25 +37,45 @@ class Robot : public IterativeRobot {
     void AutonomousPeriodic();
 
   private:
+    void resetAutoValues();
+    void getDashboardValues();
+    void putDashboardValues();
+
+  private:
     unique_ptr<Joystick> m_driveJoystick;
     unique_ptr<Joystick> m_secndJoystick;
 
+    unique_ptr<Hands> m_subsystemHands;
     unique_ptr<Lifter> m_subsystemLifter;
     unique_ptr<Intake> m_subsystemIntake;
     unique_ptr<Shooter> m_subsystemShooter;
     unique_ptr<Powertrain> m_subsystemPowertrain;
 
+    unique_ptr<SendableChooser> m_auto_chooser;
+
+    float m_auto_hands;
     float m_auto_intake;
     float m_auto_lifter;
     float m_auto_drive_x;
     float m_auto_drive_y;
     float m_auto_shooter;
+    float m_auto_shoot_allign;
 
-    float m_auto_lifter_time;
-    float m_auto_intake_time;
-    float m_auto_shooter_time;
-    float m_auto_drive_x_time;
-    float m_auto_drive_y_time;
+    float m_auto_hands_et;
+    float m_auto_lifter_et;
+    float m_auto_intake_et;
+    float m_auto_drivex_et;
+    float m_auto_drivey_et;
+    float m_auto_shooter_et;
+    float m_auto_shoot_allign_et;
+
+    float m_auto_hands_st;
+    float m_auto_lifter_st;
+    float m_auto_intake_st;
+    float m_auto_drivex_st;
+    float m_auto_drivey_st;
+    float m_auto_shooter_st;
+    float m_auto_shoot_allign_st;
 };
 
 

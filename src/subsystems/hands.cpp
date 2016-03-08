@@ -20,49 +20,44 @@
  * THE SOFTWARE.
  */
 
-#include "lifter.h"
+#include "hands.h"
 
 //===============================================================================
-// Lifter::Lifter
+// Hands::Hands
 //===============================================================================
 
-Lifter::Lifter() {
-    m_compressor = make_unique<Compressor>     (Pneumatics::kCompressor);
-    m_solenoid   = make_unique<DoubleSolenoid> (Pneumatics::kLifterPiston_Up,
-                   Pneumatics::kLifterPiston_Down);
-
-    m_compressor->SetClosedLoopControl (false);
+Hands::Hands() {
+    m_motor = make_unique<WinT_Motor> (Motors::kHandsActuator);
 }
 
 //===============================================================================
-// Lifter::enableCompressor
+// Hands::move
 //===============================================================================
 
-void Lifter::enableCompressor (bool enabled) {
-    enabled ? m_compressor->Start() : m_compressor->Stop();
+void Hands::move (float value) {
+    m_motor->Set (ADJUST_INPUT (value, 0));
 }
 
 //===============================================================================
-// Lifter::move
+// Hands::move
 //===============================================================================
 
-void Lifter::move (const Joystick& joystick) {
-    DoubleSolenoid::Value solenoidDirection = DoubleSolenoid::kOff;
+void Hands::move (const Joystick& joystick) {
+    float value = 0;
 
-    if (joystick.GetRawButton (OI::kLifterUp))
-        solenoidDirection = DoubleSolenoid::kForward;
+    if (joystick.GetRawButton (OI::kLiftHand))
+        value = 1.0;
 
-    else if (joystick.GetRawButton (OI::kLifterDown))
-        solenoidDirection = DoubleSolenoid::kReverse;
+    else if (joystick.GetRawButton (OI::kDropHand))
+        value = -0.5;
 
-    move (solenoidDirection);
-    enableCompressor (joystick.GetRawButton (OI::kEnableCompressor));
+    move (value);
 }
 
 //===============================================================================
-// Lifter::move
+// Hands::setSafetyEnabled
 //===============================================================================
 
-void Lifter::move (DoubleSolenoid::Value value) {
-    m_solenoid->Set (value);
+void Hands::setSafetyEnabled (bool enabled) {
+    m_motor->SetSafetyEnabled (enabled);
 }
