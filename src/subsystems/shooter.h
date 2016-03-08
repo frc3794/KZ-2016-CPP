@@ -28,6 +28,7 @@ class Shooter {
   public:
     explicit Shooter();
     void shoot (float inches);
+    void moveHands (float value);
     void shoot (float left, float right);
     void shoot (const Joystick& joystick);
     void enableActuator (float act_output);
@@ -38,6 +39,7 @@ class Shooter {
     unique_ptr<WinT_Motor> m_actuator;
     unique_ptr<WinT_Motor> m_motorLeft;
     unique_ptr<WinT_Motor> m_motorRight;
+    unique_ptr<WinT_Motor> m_handsMotor;
     unique_ptr<Ultrasonic> m_ultrasonic;
 
     float m_maxInitialVelocity;

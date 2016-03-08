@@ -32,7 +32,7 @@
 /// velocity, we need to reduce the angular speed of the Go-Kart wheels with
 /// this calculated constant.
 ///
-const float KART_TO_OMNI_RATIO = 11 / 7.9;
+const float KART_TO_OMNI_RATIO = 7.9 / 10;
 
 //===============================================================================
 // Powertrain::Powertrain
@@ -48,8 +48,6 @@ Powertrain::Powertrain() {
 
     m_leftA->SetInverted   (true);
     m_leftB->SetInverted   (true);
-    m_clutchA->SetInverted (true);
-    m_clutchB->SetInverted (true);
 }
 
 //===============================================================================
@@ -90,26 +88,21 @@ void Powertrain::drive (float x, float y, float sensivity, bool inverted_drive) 
 
 void Powertrain::drive (const Joystick& joystick_a, const Joystick& joystick_b) {
     float x_drive  = joystick_a.GetRawAxis (OI::kX_DriveAxis);
-    float y_drive  = joystick_a.GetRawAxis (OI::kX_DriveAxis);
-    float x_slow_a = joystick_a.GetRawAxis (OI::kX_SlowDriveAxis);
-    float y_slow_a = joystick_a.GetRawAxis (OI::kY_SlowDriveAxis);
+    float y_drive  = joystick_a.GetRawAxis (OI::kY_DriveAxis) * -1;
     float x_slow_b = joystick_b.GetRawAxis (OI::kX_SlowDriveAxis);
-    float y_slow_b = joystick_b.GetRawAxis (OI::kY_SlowDriveAxis);
+    float y_slow_b = joystick_b.GetRawAxis (OI::kY_SlowDriveAxis) * -1;
 
-    bool move_with_b_joystick = (x_slow_b > x_slow_a || y_slow_b > y_slow_a);
-    bool block_bstick = joystick_a.GetRawButton (OI::kBlockStickB);
+    bool move_with_b_joystick = (abs (x_slow_b) > abs (x_drive) ||
+                                 abs (y_slow_b) > abs (y_drive));
 
-    if (move_with_b_joystick && !block_bstick) {
-        drive (x_slow_b * 0.8, y_slow_b * 0.8, 1.0,
+    if (move_with_b_joystick) {
+        drive (x_slow_b * 0.8,
+               y_slow_b * 0.8, 1.0,
                joystick_b.GetRawButton (OI::kY_InvertButton));
     }
 
     else {
-        bool enable_slow_drive = (x_slow_a >= x_drive || y_slow_a >= y_drive);
-        float final_x = enable_slow_drive ? x_slow_a * 0.6 : x_drive;
-        float final_y = enable_slow_drive ? y_slow_a * 0.6 : y_drive;
-
-        drive (final_x, final_y,
+        drive (x_drive, y_drive,
                joystick_a.GetRawAxis (OI::kSensivityAxis),
                joystick_a.GetRawButton (OI::kY_InvertButton));
     }

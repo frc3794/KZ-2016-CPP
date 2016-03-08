@@ -27,8 +27,11 @@
 //===============================================================================
 
 Lifter::Lifter() {
+    m_compressor = make_unique<Compressor> (Pneumatics::kCompressor);
     m_solenoid = make_unique<DoubleSolenoid> (Pneumatics::kLifterSolenoid_Up,
                  Pneumatics::kLifterSolenoid_Down);
+
+    m_compressor->SetClosedLoopControl (false);
 }
 
 //===============================================================================
@@ -43,6 +46,12 @@ void Lifter::move (const Joystick& joystick) {
 
     else if (joystick.GetRawButton (OI::kLifterDown))
         value = DoubleSolenoid::kReverse;
+
+    if (joystick.GetRawButton (OI::kEnableCompressor))
+        m_compressor->Start();
+
+    else
+        m_compressor->Stop();
 
     move (value);
 }

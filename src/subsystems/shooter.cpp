@@ -44,10 +44,16 @@ Shooter::Shooter() {
     m_actuator   = make_unique<WinT_Motor> (Motors::kShooterActuator);
     m_motorLeft  = make_unique<WinT_Motor> (Motors::kLeftShooter);
     m_motorRight = make_unique<WinT_Motor> (Motors::kRightShooter);
+    m_handsMotor = make_unique<WinT_Motor> (Motors::kHandsActuator);
     m_ultrasonic = make_unique<Ultrasonic> (Sensors::kShooterRadarPing,
                                             Sensors::kShooterRadarEcho);
 
-    m_motorLeft->SetInverted           (true);
+    if (IS_CLONE)
+        m_motorRight->SetInverted (true);
+
+    else
+        m_motorLeft->SetInverted (true);
+
     m_motorLeft->SetSafetyEnabled      (false);
     m_motorRight->SetSafetyEnabled     (false);
 
@@ -68,12 +74,20 @@ void Shooter::shoot (float inches) {
 }
 
 //===============================================================================
+// Shooter::moveHands
+//===============================================================================
+
+void Shooter::moveHands (float value) {
+    m_handsMotor->Set (ADJUST_INPUT (value, 0));
+}
+
+//===============================================================================
 // Shooter::shoot
 //===============================================================================
 
 void Shooter::shoot (float left, float right) {
     m_motorLeft->Set  (ADJUST_INPUT (left,  0));
-    //m_motorRight->Set (ADJUST_INPUT (right, 0));
+    m_motorRight->Set (ADJUST_INPUT (right, 0));
 }
 
 //===============================================================================
@@ -92,6 +106,15 @@ void Shooter::shoot (const Joystick& joystick) {
                joystick.GetRawAxis (OI::kShootRightAxis));
     }
 
+    if (joystick.GetRawButton (OI::kLiftHand))
+        moveHands (0.8);
+
+    else if (joystick.GetRawButton (OI::kDropHand))
+        moveHands (-0.8);
+
+    else
+    	moveHands (0);
+
     enableActuator (joystick.GetRawAxis (OI::kEnableActuator));
 }
 
@@ -100,7 +123,7 @@ void Shooter::shoot (const Joystick& joystick) {
 //===============================================================================
 
 void Shooter::enableActuator (float act_output) {
-    m_actuator->Set (ADJUST_INPUT (act_output));
+    m_actuator->Set (ADJUST_INPUT (act_output * 0.6));
 }
 
 //===============================================================================

@@ -66,7 +66,7 @@ void Robot::AutonomousInit() {
 
 void Robot::TeleopPeriodic() {
     m_subsystemLifter->move      (*m_driveJoystick.get());
-    m_subsystemIntake->move      (*m_secndJoystick.get());
+    m_subsystemIntake->move      (*m_driveJoystick.get());
     m_subsystemShooter->shoot    (*m_secndJoystick.get());
     m_subsystemPowertrain->drive (*m_driveJoystick.get(),
                                   *m_secndJoystick.get());

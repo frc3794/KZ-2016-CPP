@@ -36,17 +36,17 @@ using namespace std;
 ///
 #define WinT_Motor       Talon
 #define MIN_OUTPUT       0.100
-#define USES_OFFICIAL_DS false
-#define IS_CLONE         true
+const bool USES_OFFICIAL_DS = true;
+const bool IS_CLONE = true;
 
 ///
 /// Motor/actuator identifiers
 ///
 namespace Motors {
-const int kLeftA               = IS_CLONE ? 1 : 2;
-const int kLeftB               = IS_CLONE ? 2 : 3;
-const int kRightA              = IS_CLONE ? 3 : 4;
-const int kRightB              = IS_CLONE ? 4 : 5;
+const int kLeftA               = IS_CLONE ? 3 : 2;
+const int kLeftB               = IS_CLONE ? 4 : 3;
+const int kRightA              = IS_CLONE ? 1 : 4;
+const int kRightB              = IS_CLONE ? 2 : 5;
 const int kClutchA             = IS_CLONE ? 0 : 1;
 const int kClutchB             = IS_CLONE ? 7 : 9;
 const int kLeftShooter         = IS_CLONE ? 6 : 7;
@@ -69,8 +69,8 @@ const int kShooterRadarEcho    = 2;
 ///
 namespace Pneumatics {
 const int kCompressor          = 0;
-const int kLifterSolenoid_Up   = 1;
-const int kLifterSolenoid_Down = 2;
+const int kLifterSolenoid_Up   = 0;
+const int kLifterSolenoid_Down = 1;
 }
 
 ///
@@ -127,10 +127,11 @@ const int kShootRightAxis      = X360_Mappings::kAxisRightTrigger;
 /* Intake & hands interface */
 const int kLiftHand            = X360_Mappings::kButtonBack;
 const int kDropHand            = X360_Mappings::kButtonStart;
-const int kIntakeTake          = X360_Mappings::kButtonLeftBumper;
-const int kIntakeGive          = X360_Mappings::kButtonRightBumper;
+const int kIntakeTake          = X360_Mappings::kAxisLeftTrigger;
+const int kIntakeGive          = X360_Mappings::kAxisRightTrigger;
 
 /* Piston lifter interface */
+const int kEnableCompressor    = X360_Mappings::kButtonX;
 const int kLifterUp            = X360_Mappings::kButtonLeftBumper;
 const int kLifterDown          = X360_Mappings::kButtonRightBumper;
 

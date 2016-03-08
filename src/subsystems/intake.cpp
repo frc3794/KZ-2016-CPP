@@ -28,15 +28,13 @@
 
 Intake::Intake() {
     m_motor = make_unique<WinT_Motor> (Motors::kIntakeMotor);
-    m_hands = make_unique<WinT_Motor> (Motors::kHandsActuator);
 }
 
 //===============================================================================
 // Intake::move
 //===============================================================================
 
-void Intake::move (float intake, float hands) {
-    m_hands->Set (ADJUST_INPUT (hands, 0));
+void Intake::move (float intake) {
     m_motor->Set (ADJUST_INPUT (intake, 0));
 }
 
@@ -45,19 +43,17 @@ void Intake::move (float intake, float hands) {
 //===============================================================================
 
 void Intake::move (const Joystick& joystick) {
-    float hands = 0;
+    float left = joystick.GetRawAxis (OI::kIntakeTake);
+    float right = joystick.GetRawAxis (OI::kIntakeGive);
 
-    if (joystick.GetRawButton (OI::kDropHand))
-        hands = 0.8;
+    if (left > right)
+        move (left);
 
-    else if (joystick.GetRawButton (OI::kLiftHand))
-        hands = -0.8;
+    else if (right > left)
+        move (right * -1);
 
-    if (joystick.GetRawButton (OI::kIntakeTake))
-        move (1, hands);
-
-    else if (joystick.GetRawButton (OI::kIntakeGive))
-        move (-1, hands);
+    else
+        move (0);
 }
 
 //===============================================================================
