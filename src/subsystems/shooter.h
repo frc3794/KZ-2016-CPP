@@ -28,7 +28,6 @@ class Shooter {
   public:
     explicit Shooter();
     void shoot (float inches);
-    void moveHands (float value);
     void shoot (float left, float right);
     void shoot (const Joystick& joystick);
     void moveBallToShooter (float act_output);

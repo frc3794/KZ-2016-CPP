@@ -32,16 +32,21 @@
 class Robot : public IterativeRobot {
   public:
     void RobotInit();
+    void TeleopInit();
+    void DisabledInit();
     void AutonomousInit();
     void TeleopPeriodic();
     void AutonomousPeriodic();
 
   private:
-    void resetAutoValues();
+    void resetAutoOutputs();
     void getDashboardValues();
     void putDashboardValues();
+    void updateAutonomousSystems();
 
   private:
+    unique_ptr<Timer> m_timer;
+
     unique_ptr<Joystick> m_driveJoystick;
     unique_ptr<Joystick> m_secndJoystick;
 
@@ -53,13 +58,37 @@ class Robot : public IterativeRobot {
 
     unique_ptr<SendableChooser> m_auto_chooser;
 
+    bool m_auto_hands_started;
+    bool m_auto_intake_started;
+    bool m_auto_lifter_started;
+    bool m_auto_drive_x_started;
+    bool m_auto_drive_y_started;
+    bool m_auto_shooter_started;
+    bool m_auto_shooter_allign_started;
+
+    bool m_auto_hands_ended;
+    bool m_auto_intake_ended;
+    bool m_auto_lifter_ended;
+    bool m_auto_drive_x_ended;
+    bool m_auto_drive_y_ended;
+    bool m_auto_shooter_ended;
+    bool m_auto_shooter_allign_ended;
+
+    bool m_auto_hands_enabled;
+    bool m_auto_intake_enabled;
+    bool m_auto_lifter_enabled;
+    bool m_auto_drive_x_enabled;
+    bool m_auto_drive_y_enabled;
+    bool m_auto_shooter_enabled;
+    bool m_auto_shooter_allign_enabled;
+
     float m_auto_hands;
     float m_auto_intake;
-    float m_auto_lifter;
     float m_auto_drive_x;
     float m_auto_drive_y;
     float m_auto_shooter;
     float m_auto_shoot_allign;
+    DoubleSolenoid::Value m_auto_lifter;
 
     float m_auto_hands_et;
     float m_auto_lifter_et;

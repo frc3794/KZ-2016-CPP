@@ -37,6 +37,7 @@ using namespace std;
 #define WinT_Motor       Talon
 #define MIN_OUTPUT       0.100
 #define SD               SmartDashboard
+#define SOL_VALUE        DoubleSolenoid::Value
 const bool USES_OFFICIAL_DS = true;
 const bool IS_CLONE = true;
 
