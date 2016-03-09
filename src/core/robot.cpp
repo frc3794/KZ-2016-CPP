@@ -440,7 +440,7 @@ void Robot::putDashboardValues() {
 //===============================================================================
 
 void Robot::updateAutonomousSystems() {
-    double time = m_timer->Get();
+    float time = (float) m_timer->Get();
 
     /* Know which systems should be running */
     m_auto_hands_started          = (time >= m_auto_hands_st);
