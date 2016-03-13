@@ -41,17 +41,13 @@ using namespace std;
 //===============================================================================
 
 Shooter::Shooter() {
-    m_actuator   = make_unique<WinT_Motor> (Motors::kShooterActuator);
-    m_motorLeft  = make_unique<WinT_Motor> (Motors::kLeftShooter);
-    m_motorRight = make_unique<WinT_Motor> (Motors::kRightShooter);
-    m_ultrasonic = make_unique<Ultrasonic> (Sensors::kShooterRadarPing,
-                                            Sensors::kShooterRadarEcho);
+    m_actuator   = new Talon      (Motors::kShooterActuator);
+    m_motorLeft  = new WinT_Motor (Motors::kLeftShooter);
+    m_motorRight = new WinT_Motor (Motors::kRightShooter);
+    m_ultrasonic = new Ultrasonic (Sensors::kShooterRadarPing,
+                                   Sensors::kShooterRadarEcho);
 
-    if (IS_CLONE)
-        m_motorRight->SetInverted (true);
-    else
-        m_motorLeft->SetInverted (true);
-
+    m_motorLeft->SetInverted (true);
     m_motorLeft->SetSafetyEnabled  (false);
     m_motorRight->SetSafetyEnabled (false);
     m_maxInitialVelocity = getInitialVelocity (kMAX_RANGE);
@@ -75,8 +71,8 @@ void Shooter::shoot (float inches) {
 //===============================================================================
 
 void Shooter::shoot (float left, float right) {
-    m_motorLeft->Set  (ADJUST_INPUT (left,  0));
-    m_motorRight->Set (ADJUST_INPUT (right, 0));
+    m_motorLeft->Set  (ADJUST_INPUT (left * -1,  0));
+    m_motorRight->Set (ADJUST_INPUT (right * -1, 0));
 }
 
 //===============================================================================
@@ -84,15 +80,16 @@ void Shooter::shoot (float left, float right) {
 //===============================================================================
 
 void Shooter::shoot (const Joystick& joystick) {
+    float v = joystick.GetRawButton (X360_Mappings::kButtonA) ? -1 : 1;
     if (joystick.GetRawButton (OI::kSmartShootButton))
         shoot (m_ultrasonic->GetRangeInches());
 
     if (joystick.GetRawButton (OI::kBruteShootButton))
-        shoot (1, 1);
+        shoot (1 * v, 1 * v);
 
     else {
-        shoot (joystick.GetRawAxis (OI::kShootLeftAxis),
-               joystick.GetRawAxis (OI::kShootRightAxis));
+        shoot (joystick.GetRawAxis (OI::kShootLeftAxis) * v,
+               joystick.GetRawAxis (OI::kShootRightAxis) * v);
     }
 
     moveBallToShooter (joystick.GetRawAxis (OI::kEnableActuator));
@@ -103,7 +100,7 @@ void Shooter::shoot (const Joystick& joystick) {
 //===============================================================================
 
 void Shooter::moveBallToShooter (float act_output) {
-    m_actuator->Set (ADJUST_INPUT (act_output * 0.6));
+    m_actuator->Set (ADJUST_INPUT (act_output * 0.6, 0));
 }
 
 //===============================================================================

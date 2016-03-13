@@ -27,7 +27,8 @@
 //===============================================================================
 
 Hands::Hands() {
-    m_motor = make_unique<WinT_Motor> (Motors::kHandsActuator);
+    m_motor = new Talon (Motors::kHandsActuator);
+    m_motor->SetInverted (true);
 }
 
 //===============================================================================

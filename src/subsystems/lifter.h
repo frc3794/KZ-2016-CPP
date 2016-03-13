@@ -33,6 +33,6 @@ class Lifter {
     void move (DoubleSolenoid::Value value);
 
   private:
-    unique_ptr<Compressor> m_compressor;
-    unique_ptr<DoubleSolenoid> m_solenoid;
+    Compressor* m_compressor;
+    DoubleSolenoid* m_solenoid;
 };

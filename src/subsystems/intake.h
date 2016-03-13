@@ -32,7 +32,7 @@ class Intake {
     void setSafetyEnabled (bool enabled);
 
   private:
-    unique_ptr<WinT_Motor> m_motor;
+    WinT_Motor* m_motor;
 };
 
 

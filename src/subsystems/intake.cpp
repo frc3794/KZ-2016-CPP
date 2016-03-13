@@ -27,7 +27,7 @@
 //===============================================================================
 
 Intake::Intake() {
-    m_motor = make_unique<WinT_Motor> (Motors::kIntakeMotor);
+    m_motor = new WinT_Motor (Motors::kIntakeMotor);
 }
 
 //===============================================================================

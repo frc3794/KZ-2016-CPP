@@ -33,5 +33,5 @@ class Hands {
     void setSafetyEnabled (bool enabled);
 
   private:
-    unique_ptr<WinT_Motor> m_motor;
+    Talon* m_motor;
 };

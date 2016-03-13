@@ -34,28 +34,35 @@ using namespace std;
 ///
 /// Global variables
 ///
-#define WinT_Motor       Talon
+#define WinT_Motor       CANTalon
 #define MIN_OUTPUT       0.100
 #define SD               SmartDashboard
 #define SOL_VALUE        DoubleSolenoid::Value
+
+///
+/// Change these when needed
+///
 const bool USES_OFFICIAL_DS = true;
-const bool IS_CLONE = true;
+const bool IS_CLONE         = false;
 
 ///
 /// Motor/actuator identifiers
 ///
 namespace Motors {
-const int kLeftA               = IS_CLONE ? 3 : 2;
-const int kLeftB               = IS_CLONE ? 4 : 3;
-const int kRightA              = IS_CLONE ? 1 : 4;
-const int kRightB              = IS_CLONE ? 2 : 5;
-const int kClutchA             = IS_CLONE ? 0 : 1;
-const int kClutchB             = IS_CLONE ? 7 : 9;
-const int kLeftShooter         = IS_CLONE ? 6 : 7;
-const int kRightShooter        = IS_CLONE ? 6 : 8;
-const int kIntakeMotor         = IS_CLONE ? 5 : 6;
-const int kHandsActuator       = IS_CLONE ? 9 : 10;
-const int kShooterActuator     = IS_CLONE ? 8 : 9;
+/* CAN Motors */
+const int kLeftA               = 2;
+const int kLeftB               = 4;
+const int kRightA              = 3;
+const int kRightB              = 5;
+const int kClutchA             = 1;
+const int kClutchB             = 9;
+const int kLeftShooter         = 8;
+const int kRightShooter        = 7;
+const int kIntakeMotor         = 6;
+
+/* PWM Motors */
+const int kHandsActuator       = 1;
+const int kShooterActuator     = 0;
 }
 
 ///
@@ -144,7 +151,7 @@ const int kY_SlowDriveAxis     = X360_Mappings::kAxisRightY;
 const int kX_SlowDriveAxis     = X360_Mappings::kAxisRightX;
 const int kY_InvertButton      = X360_Mappings::kButtonA;
 const int kBlockStickB         = X360_Mappings::kButtonX;
-const int kSensivityAxis       = X360_Mappings::kAxisLeftTrigger;
+const int kSensivityAxis       = X360_Mappings::kAxisRightY;
 }
 
 ///

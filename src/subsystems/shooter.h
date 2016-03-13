@@ -35,10 +35,10 @@ class Shooter {
   private:
     float getInitialVelocity (float range);
 
-    unique_ptr<WinT_Motor> m_actuator;
-    unique_ptr<WinT_Motor> m_motorLeft;
-    unique_ptr<WinT_Motor> m_motorRight;
-    unique_ptr<Ultrasonic> m_ultrasonic;
+    Talon* m_actuator;
+    WinT_Motor* m_motorLeft;
+    WinT_Motor* m_motorRight;
+    Ultrasonic* m_ultrasonic;
 
     float m_maxInitialVelocity;
 };

@@ -26,26 +26,22 @@
 
 class Powertrain {
   public:
-    struct DriveOutputs {
-        float left  = 0;
-        float right = 0;
-    };
-
     explicit Powertrain();
     void setSafetyEnabled (bool enabled);
     void drive (float x, float y, float sensivity, bool inverted_drive);
-    void drive (const Joystick& joystick_a, const Joystick& joystick_b);
+    void drive (Joystick* joystick_a, Joystick* joystick_b);
 
   private:
-    unique_ptr<WinT_Motor> m_leftA;
-    unique_ptr<WinT_Motor> m_leftB;
-    unique_ptr<WinT_Motor> m_rightA;
-    unique_ptr<WinT_Motor> m_rightB;
-    unique_ptr<WinT_Motor> m_clutchA;
-    unique_ptr<WinT_Motor> m_clutchB;
+    RobotDrive* m_driveA;
+    RobotDrive* m_driveB;
 
-    DriveOutputs m_output;
-    void computeDriveOutputs (float x, float y, bool squared);
+    WinT_Motor* m_clutchA;
+    WinT_Motor* m_clutchB;
+
+    WinT_Motor* m_leftA;
+    WinT_Motor* m_leftB;
+    WinT_Motor* m_rightA;
+    WinT_Motor* m_rightB;
 };
 
 

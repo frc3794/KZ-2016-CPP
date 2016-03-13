@@ -27,9 +27,9 @@
 //===============================================================================
 
 Lifter::Lifter() {
-    m_compressor = make_unique<Compressor>     (Pneumatics::kCompressor);
-    m_solenoid   = make_unique<DoubleSolenoid> (Pneumatics::kLifterPiston_Up,
-                   Pneumatics::kLifterPiston_Down);
+    m_compressor = new Compressor     (Pneumatics::kCompressor);
+    m_solenoid   = new DoubleSolenoid (Pneumatics::kLifterPiston_Up,
+                                       Pneumatics::kLifterPiston_Down);
 
     m_compressor->SetClosedLoopControl (false);
 }

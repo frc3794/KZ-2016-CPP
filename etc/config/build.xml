@@ -4,5 +4,5 @@
   <property file="build.properties"/>
   <property file="${user.home}/wpilib/cpp/${version}/ant/build.properties"/>
   <import file="${user.home}/wpilib/cpp/${version}/ant/build.xml"/>
-  <property name="target" value="10.37.94.21"/>
+  <property name="target" value="roboRIO-3794-FRC.local"/>
 </project>
